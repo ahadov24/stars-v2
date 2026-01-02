@@ -2,8 +2,11 @@ import './home.scss'
 import duck from '../../assets/duck.gif'
 import starsIcon from '../../assets/starsIcon.png'
 import starsImg from '../../assets/stars.png'
-import premiumIcon from '../../assets/premiumIcon.png'
 import premiumImg from '../../assets/premium.png'
+import premiumIcon from '../../assets/premiumIcon.png'
+import homeIcon from '../../assets/homeIcon.png'
+import referalIcon from '../../assets/referalIcon.png'
+import settingsIcon from '../../assets/settingsIcon.png'
 
 const Home = () => {
     return (
@@ -53,7 +56,40 @@ const Home = () => {
                     </a>
                 </div>
             </div>
-            <nav></nav>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="">
+                            <img src={homeIcon} alt="" />
+                            Bosh Sahifa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src={starsIcon} alt="" />
+                            Stars
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src={premiumIcon} alt="" />
+                            Premium
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src={referalIcon} alt="" /> 
+                            Referal
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src={settingsIcon} alt="" />
+                            Sozlamalar
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div> 
     )
 }

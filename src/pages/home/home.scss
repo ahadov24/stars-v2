@@ -1,7 +1,7 @@
 .home {
     width: 100%;
     margin: 0 auto;
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     .hero {
         text-align: right;
         line-height: 0;
@@ -34,11 +34,12 @@
                 border-radius: 12px;
                 justify-content: space-between;
                 overflow: hidden;
-                font-size: 14px;
+                font-size: 11px;
                 position: relative;
                 padding-left: 12px;
                 h2 {
                     font-size: 20px;
+                    margin-bottom: 6px;
                 }
                 .left {
                     img {
@@ -49,6 +50,7 @@
                 .right {
                     img {
                         margin-right: -24px;
+                        height: 118px;
                     }
                 }
             }
@@ -64,6 +66,36 @@
                 align-items: center;
                 gap: 6px;
                 justify-content: center;
+            }
+        }
+    }
+    nav {
+        height: 60px;
+        padding: 0 18px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        margin-top: 32px;
+        background: #17212B;
+        ul {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            list-style: none;
+            li {
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                    font-size: 11px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 4px;
+                    img {
+                        width: 16px;
+                        height: 14px;
+                    }
+                }
             }
         }
     }
