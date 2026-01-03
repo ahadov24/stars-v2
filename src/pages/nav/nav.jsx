@@ -4,40 +4,41 @@ import referalIcon from "../../assets/referalIcon.png";
 import settingsIcon from "../../assets/settingsIcon.png";
 import starsIcon from "../../assets/starsIcon.png";
 import './nav.scss';
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   return (
     <nav>
       <ul>
         <li>
-          <a href="/">
+          <NavLink title="Home" to="/">
             <img src={homeIcon} alt="" />
             Bosh Sahifa
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="stars">
+          <NavLink to="/stars">
             <img src={starsIcon} alt="" />
             Stars
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="">
+          <NavLink to="/premium">
             <img src={premiumIcon} alt="" />
             Premium
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="">
+          <NavLink to="/referal">
             <img src={referalIcon} alt="" />
             Referal
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="">
+          <NavLink to="/settings">
             <img src={settingsIcon} alt="" />
             Sozlamalar
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>
