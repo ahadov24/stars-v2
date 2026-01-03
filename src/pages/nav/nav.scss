@@ -24,6 +24,15 @@ nav {
           width: 16px;
           height: 14px;
         }
+        &.active, &.active-link {
+          color: #248BDA;
+          // background-color: #000;
+
+          img {
+            filter: hue-rotate(30deg);
+            opacity: 0.8;
+          }
+        }
       }
     }
   }

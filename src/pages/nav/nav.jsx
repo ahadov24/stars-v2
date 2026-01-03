@@ -11,31 +11,31 @@ const Nav = () => {
     <nav>
       <ul>
         <li>
-          <NavLink title="Home" to="/">
+          <NavLink title="Home" to="/" className={({ isActive }) => (isActive ? "active-link" : "")}>
             <img src={homeIcon} alt="" />
             Bosh Sahifa
           </NavLink>
         </li>
         <li>
-          <NavLink to="/stars">
+          <NavLink to="/stars" className={({ isActive }) => (isActive ? "active-link" : "")}>
             <img src={starsIcon} alt="" />
             Stars
           </NavLink>
         </li>
         <li>
-          <NavLink to="/premium">
+          <NavLink to="/premium" className={({ isActive }) => (isActive ? "active-link" : "")}>
             <img src={premiumIcon} alt="" />
             Premium
           </NavLink>
         </li>
         <li>
-          <NavLink to="/referal">
+          <NavLink to="/referal" className={({ isActive }) => (isActive ? "active-link" : "")}>
             <img src={referalIcon} alt="" />
             Referal
           </NavLink>
         </li>
         <li>
-          <NavLink to="/settings">
+          <NavLink to="/settings" className={({ isActive }) => (isActive ? "active-link" : "")}>
             <img src={settingsIcon} alt="" />
             Sozlamalar
           </NavLink>
