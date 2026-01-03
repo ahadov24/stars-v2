@@ -11,6 +11,7 @@ import Nav from '../nav/nav.jsx'
 
 const Home = () => {
     return (
+        <>
         <div className="home">
             <div className="hero">
                 <h1>
@@ -57,42 +58,9 @@ const Home = () => {
                     </a>
                 </div>
             </div>
-            <Nav />
-            {/* <nav>
-                <ul>
-                    <li>
-                        <a href="">
-                            <img src={homeIcon} alt="" />
-                            Bosh Sahifa
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src={starsIcon} alt="" />
-                            Stars
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src={premiumIcon} alt="" />
-                            Premium
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src={referalIcon} alt="" /> 
-                            Referal
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src={settingsIcon} alt="" />
-                            Sozlamalar
-                        </a>
-                    </li>
-                </ul>
-            </nav> */}
         </div> 
+        <Nav />
+        </>
     )
 }
 
