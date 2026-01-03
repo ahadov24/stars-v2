@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Premium.scss";
+import "./premium.scss";
 import Nav from "../nav/nav.jsx";
 import starsImg from "../../assets/starspageImg.png";
 
