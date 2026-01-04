@@ -118,19 +118,21 @@ const [openDropdown, setOpenDropdown] = useState(null);
           </div>
 
           {/* Oddiy qatorlar */}
-          <div className="settings-item">
+          <a className="settings-item" href="https://google.com">
             <div className="left-side">
               <span className="icon-wrapper">
                 <Headphones size={18} />
               </span>
-              <span className="label">Yordam</span>
+              <span className="label">
+                Yordam
+              </span>
             </div>
             <div className="right-side">
               <span className="value">@helpmme</span>
             </div>
-          </div>
+          </a>
 
-          <div className="settings-item">
+          <a className="settings-item" href="https://google.com">
             <div className="left-side">
               <span className="icon-wrapper">
                 <Megaphone size={18} />
@@ -140,7 +142,7 @@ const [openDropdown, setOpenDropdown] = useState(null);
             <div className="right-side">
               <span className="value">@news</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <Nav />

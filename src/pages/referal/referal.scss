@@ -1,0 +1,180 @@
+.referal {
+  padding: 0 10px;
+  flex: 1; // Qolgan hamma bo'sh joyni egallaydi
+  overflow-y: auto; // Agar kontent ko'p bo'lsa, nav-ni yopmasdan scroll bo'ladi
+  padding-bottom: 20px;
+  header {
+    text-align: center;
+    margin: 50px 0;
+    p {
+      font-size: 14px;
+      font-weight: lighter;
+      margin-top: 6px;
+    }
+  }
+  .referral-page {
+    padding: 16px;
+    // background: #17212b;
+    color: white;
+
+    .balance-card {
+      display: flex;
+      background: #17212B;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      .balance-item {
+        flex: 1;
+        text-align: center;
+        .value {
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .sub-text {
+          font-size: 10px;
+          color: #7d8b99;
+          margin-top: 4px;
+        }
+      }
+      .divider {
+        width: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 10px;
+      }
+    }
+
+    .withdraw-card {
+      background: #17212B;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+
+      .tab-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+        button {
+          flex: 1;
+          padding: 10px;
+          border-radius: 8px;
+          border: none;
+          background: #1c2733;
+          color: white;
+          cursor: pointer;
+          &.active {
+            background: #248bda;
+          }
+        }
+      }
+
+      .stars-content {
+        .input-row {
+          display: flex;
+          gap: 8px;
+          .input-wrapper {
+            position: relative;
+            flex: 1;
+            .input-icon {
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            input {
+              width: 100%;
+              background: #17212b;
+              border: 1px solid #333;
+              padding: 10px 10px 10px 30px;
+              border-radius: 8px;
+              color: white;
+            }
+          }
+          .withdraw-btn {
+            background: #248bda;
+            border: none;
+            padding: 0 15px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .gifts-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        .gift-box {
+          aspect-ratio: 1;
+          background: #1c2733;
+          border: 1px solid #333;
+          border-radius: 8px;
+        }
+      }
+
+      .min-withdraw {
+        font-size: 10px;
+        color: #7d8b99;
+        margin-top: 12px;
+        text-align: center;
+      }
+    }
+
+    .links-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      .link-box {
+        flex: 1;
+        background: #17212B;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .copy-btn {
+          background: #248bda;
+          border: none;
+          padding: 6px;
+          border-radius: 6px;
+          color: white;
+          position: relative;
+          cursor: pointer;
+          .tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .share-btn {
+      width: 100%;
+      background: #248bda;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+  }
+}
