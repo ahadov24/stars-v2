@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./stars.scss";
 import Nav from "../nav/nav.jsx";
 import starsImg from "../../assets/starspageImg.png";
+import headerImg from "../../assets/headerImg.gif";
 
 const Stars = () => {
   const starsOptions = [
@@ -15,11 +16,16 @@ const Stars = () => {
     <>
       <div className="stars">
         <header>
-          <h2>Telegram Stars sotib olish</h2>
-          <p>
-            Visa kartasiz Telegram Stars balansini o‘zingiz yoki yaqinlaringiz
-            uchun to‘ldirib oling
-          </p>
+          <div className="left">
+            <h2>Telegram Stars sotib olish</h2>
+            <p>
+              Visa kartasiz Telegram Stars balansini o‘zingiz yoki yaqinlaringiz
+              uchun to‘ldirib oling
+            </p>
+          </div>
+          <div className="right">
+            <img src={headerImg} alt="" width="100px" />
+          </div>
         </header>
         <div className="send">
           <div className="forWho">

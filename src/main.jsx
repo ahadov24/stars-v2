@@ -6,6 +6,7 @@ import Stars from './pages/stars/stars'
 import Premium from './pages/premium/premium'
 import Settings from './pages/settings/settings'
 import Referal from './pages/referal/referal'
+import Topup from './pages/topUp/topup'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/premium" element={<Premium />} />
         <Route path="/referal" element={<Referal />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/topup" element={<Topup />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

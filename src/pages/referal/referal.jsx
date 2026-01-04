@@ -2,6 +2,7 @@ import "./referal.scss";
 import { useState } from "react";
 import { Copy, Share2, Check } from "lucide-react";
 import Nav from "../nav/nav.jsx";
+import headerImg from "../../assets/headerImg.gif";
 
 const Referal = () => {
   const [activeTab, setActiveTab] = useState("stars"); // 'stars' yoki 'gifts'
@@ -38,11 +39,15 @@ const Referal = () => {
     <>
       <div className="referal">
         <header>
-          <h2>Referral dasturi</h2>
-          <p>
-            Har bir taklif qilgan do'stingiz uchun <br /> mukofotlarga ega
-            bo'ling
-          </p>
+          <div className="left">
+            <h2>Referral dasturi</h2>
+            <p>
+              Har bir taklif qilgan do'stingiz uchun mukofotlarga ega bo'ling
+            </p>
+          </div>
+          <div className="right">
+            <img src={headerImg} alt="" width="100px" />
+          </div>
         </header>
 
         <div className="referral-page">

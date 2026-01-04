@@ -1,0 +1,170 @@
+.topup {
+  padding: 0 10px;
+  flex: 1; // Qolgan hamma bo'sh joyni egallaydi
+  overflow-y: auto; // Agar kontent ko'p bo'lsa, nav-ni yopmasdan scroll bo'ladi
+  padding-bottom: 20px;
+  header {
+    margin: 50px 0;
+    display: flex;
+    justify-content: space-between;
+    .left {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h2 {
+        font-size: 22px;
+      }
+      p {
+        font-size: 12px;
+        font-weight: lighter;
+        margin-top: 6px;
+      }
+    }
+    .right {
+      width: 40%;
+      border-radius: 12px;
+      background: #b5fdc4;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .payment-page {
+    min-height: 100vh;
+    color: white;
+
+    .balance-info {
+      border: 2px solid #248bda;
+      border-radius: 14px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 15px;
+      background: #17212b;
+
+      .amount-gold {
+        color: #ffd700;
+        font-weight: bold;
+      }
+    }
+
+    .section {
+      margin-bottom: 24px;
+
+      .section-label {
+        color: #7d8b99;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      .amount-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; // Ikkitadan qatorga
+        gap: 12px;
+        margin-bottom: 12px;
+
+        .amount-btn {
+          background: #17212B;
+          border: 1.5px solid rgba(255, 255, 255, 0.1);
+          padding: 14px;
+          border-radius: 12px;
+          color: #fff;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          outline: none;
+
+          // Tanlangan holati (Select effect)
+          &.active {
+            background: #248bda; // Ko'k rang
+            border-color: #fff; // Cheti oq chiziq (ajralib turishi uchun)
+            transform: scale(1.02); // Bir oz kattalashadi
+            font-weight: bold;
+          }
+
+          &:hover {
+            border-color: #248bda;
+          }
+        }
+      }
+
+      .custom-input {
+        width: 100%;
+        background: #1c2733;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 10px;
+        color: white;
+        outline: none;
+        cursor: text;
+
+        &.active {
+          border-color: #248bda;
+          &:focus {
+            border-color: #248bda;
+          }
+        }
+      }
+    }
+
+    .method-card {
+      background: #1c2733;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &.selected {
+        border-color: #248bda;
+        background: rgba(36, 139, 218, 0.05);
+      }
+
+      .icon-box {
+        border: 1px solid #248bda;
+        padding: 8px;
+        border-radius: 8px;
+        color: white;
+      }
+
+      .method-info {
+        display: flex;
+        flex-direction: column;
+        .title {
+          font-size: 16px;
+          font-weight: 500;
+        }
+        .desc {
+          font-size: 11px;
+          color: #7d8b99;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .main-action-btn {
+      width: 100%;
+      background: #248bda;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+
+      &:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+      }
+    }
+  }
+}

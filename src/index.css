@@ -8,6 +8,7 @@
 
 body {
   background: #232E3C;
+  scrollbar-gutter: stable;
 }
 ::-webkit-scrollbar {
   width: 6px;

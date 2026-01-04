@@ -51,7 +51,7 @@ const [openDropdown, setOpenDropdown] = useState(null);
         </header>
         <div className="balance">
           <h2>0 UZS</h2>
-          <NavLink title="Home" to="/">
+          <NavLink title="Home" to="/topup">
             Hisobni to'ldirish
           </NavLink>
         </div>
