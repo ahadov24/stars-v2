@@ -29,6 +29,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      .gif-video {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover; // Konteynerni to'liq qoplashi uchun
+      }
     }
   }
   .referral-page {

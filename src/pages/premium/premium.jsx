@@ -4,8 +4,10 @@ import Nav from "../nav/nav.jsx";
 import starsImg from "../../assets/starspageImg.png";
 import headerImg from "../../assets/headerImg.gif";
 import { useTranslation } from 'react-i18next';
+import useTelegramBack from "../../hooks/useTelegramBack";
 
 const Premium = () => {
+  useTelegramBack("/");
   const { t, i18n } = useTranslation();
   const premiumOptions = [
     { id: 1, amount: 1, price: 5000 },

@@ -2,10 +2,13 @@ import "./referal.scss";
 import { useState } from "react";
 import { Copy, Share2, Check, Star } from "lucide-react";
 import Nav from "../nav/nav.jsx";
-import headerImg from "../../assets/headerImg.gif";
-import { useTranslation } from 'react-i18next';
+// import headerImg from "../../assets/headerImg.gif";
+import headerImg from "./gif.webm";
+import { useTranslation } from "react-i18next";
+import useTelegramBack from "../../hooks/useTelegramBack";
 
 const Referal = () => {
+    useTelegramBack("/");
   const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState("stars"); // 'stars' yoki 'gifts'
   const [copiedId, setCopiedId] = useState(false);
@@ -42,13 +45,15 @@ const Referal = () => {
       <div className="referal">
         <header>
           <div className="left">
-            <h2>{t('referalTitle')}</h2>
-            <p>
-              {t('referalSubtitle')}
-            </p>
+            <h2>{t("referalTitle")}</h2>
+            <p>{t("referalSubtitle")}</p>
           </div>
           <div className="right">
-            <img src={headerImg} alt="" width="100px" />
+            {/* <img src={headerImg} alt="" width="100px" /> */}
+            <video type="video/webm" autoPlay muted loop playsInline className="gif-video">
+              <source src={headerImg}  type="video/webm" />
+              Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
+            </video>
           </div>
         </header>
 
@@ -56,13 +61,17 @@ const Referal = () => {
           {/* Balans qismi */}
           <div className="balance-card">
             <div className="balance-item">
-              <div className="value"><Star fill="#fff" width="20px" /> 0 = 0 UZS</div>
-              <div className="sub-text">{t('readyTobuy')}</div>
+              <div className="value">
+                <Star fill="#fff" width="20px" /> 0 = 0 UZS
+              </div>
+              <div className="sub-text">{t("readyTobuy")}</div>
             </div>
             <div className="divider"></div>
             <div className="balance-item">
-              <div className="value"><Star fill="#fff" width="20px" /> 0 = 0 UZS</div>
-              <div className="sub-text">{t('totalBalance')}</div>
+              <div className="value">
+                <Star fill="#fff" width="20px" /> 0 = 0 UZS
+              </div>
+              <div className="sub-text">{t("totalBalance")}</div>
             </div>
           </div>
 
@@ -73,13 +82,13 @@ const Referal = () => {
                 className={activeTab === "stars" ? "active" : ""}
                 onClick={() => setActiveTab("stars")}
               >
-                {t('stars')}
+                {t("stars")}
               </button>
               <button
                 className={activeTab === "gifts" ? "active" : ""}
                 onClick={() => setActiveTab("gifts")}
               >
-                {t('gifts')}
+                {t("gifts")}
               </button>
             </div>
 
@@ -87,14 +96,14 @@ const Referal = () => {
               <div className="stars-content">
                 <form className="input-row">
                   <div className="input-wrapper">
-                    <span className="input-icon"><Star fill="#fff" width="20px" /></span>
-                    <input type="number" placeholder={t('enterAmount')} />
+                    <span className="input-icon">
+                      <Star fill="#fff" width="20px" />
+                    </span>
+                    <input type="number" placeholder={t("enterAmount")} />
                   </div>
-                  <button className="withdraw-btn">{t('withdraw')}</button>
+                  <button className="withdraw-btn">{t("withdraw")}</button>
                 </form>
-                <p className="min-withdraw">
-                  {t('minWithdrawInfo')}
-                </p>
+                <p className="min-withdraw">{t("minWithdrawInfo")}</p>
               </div>
             ) : (
               <div className="gifts-content">
@@ -103,7 +112,7 @@ const Referal = () => {
                     <div key={i} className="gift-box"></div>
                   ))}
                 </div>
-                <p className="min-withdraw">{t('GiftsReminder')}</p>
+                <p className="min-withdraw">{t("GiftsReminder")}</p>
               </div>
             )}
           </div>
@@ -117,7 +126,7 @@ const Referal = () => {
                 className="copy-btn"
               >
                 {copiedId ? <Check size={16} /> : <Copy size={16} />}
-                {copiedId && <span className="tooltip">{t('copied')}</span>}
+                {copiedId && <span className="tooltip">{t("copied")}</span>}
               </button>
             </div>
             <div className="link-box">
@@ -127,13 +136,13 @@ const Referal = () => {
                 className="copy-btn"
               >
                 {copiedLink ? <Check size={16} /> : <Copy size={16} />}
-                {copiedLink && <span className="tooltip">{t('copied')}</span>}
+                {copiedLink && <span className="tooltip">{t("copied")}</span>}
               </button>
             </div>
           </div>
 
           <button className="share-btn" onClick={handleShare}>
-            <Share2 size={18} /> {t('shareOnTelegram')}
+            <Share2 size={18} /> {t("shareOnTelegram")}
           </button>
         </div>
       </div>

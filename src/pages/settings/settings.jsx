@@ -5,6 +5,7 @@ import Nav from "../nav/nav.jsx";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "../../utils/i18n";
+import useTelegramBack from "../../hooks/useTelegramBack";
 
 import {
   Globe,
@@ -21,6 +22,8 @@ const languageLabel = {
 };
 
 const Settings = () => {
+  useTelegramBack("/");
+
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
   const containerRef = useRef(null);

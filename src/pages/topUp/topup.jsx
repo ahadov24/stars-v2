@@ -4,8 +4,10 @@ import { CreditCard, ShieldCheck, Upload, Copy } from "lucide-react";
 import { useState } from "react";
 import headerImg from "../../assets/headerImg.gif";
 import { useTranslation } from 'react-i18next';
+import useTelegramBack from "../../hooks/useTelegramBack";
 
 const Topup = () => {
+    useTelegramBack("/settings");
   const { t } = useTranslation();
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [customAmount, setCustomAmount] = useState("");
