@@ -25,11 +25,17 @@
     .right {
       width: 40%;
       border-radius: 12px;
-      background: #b5fdc4;
+      background: #248bda;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      .gif-video {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover; // Konteynerni to'liq qoplashi uchun
+      }
     }
   }
 
