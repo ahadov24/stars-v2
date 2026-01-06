@@ -32,7 +32,7 @@ const Home = () => {
             {user && <span>, {user.fullname}!</span>}
             <img src={duck} alt="" width="44px" />
           </h1>
-          <p>{t("dearUser")}</p>
+          {/* <p>{t("dearUser")}</p> */}
         </div>
         
         <div className="main-cards">
