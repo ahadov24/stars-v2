@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./stars.scss";
 import Nav from "../nav/nav.jsx";
-import headerImg from "../../assets/headerImg.gif";
+// import headerImg from "../../assets/headerImg.gif";
+import headerImg from "../../assets/starsGif.mp4";
 import { useTranslation } from 'react-i18next';
 import useTelegramBack from "../../hooks/useTelegramBack";
 
@@ -31,7 +32,10 @@ const Stars = () => {
             <p>{t('stars_subtitle')}</p>
           </div>
           <div className="right">
-            <img src={headerImg} alt="Header" width="100px" />
+            <video type="video/webm" autoPlay muted loop playsInline className="gif-video">
+              <source src={headerImg}  type="video/webm" />
+              Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
+            </video>
           </div>
         </header>
 

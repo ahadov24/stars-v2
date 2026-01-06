@@ -2,7 +2,8 @@ import "./topup.scss";
 import Nav from "../nav/nav";
 import { CreditCard, ShieldCheck, Upload, Copy } from "lucide-react";
 import { useState } from "react";
-import headerImg from "../../assets/headerImg.gif";
+// import headerImg from "../../assets/headerImg.gif";
+import headerImg from "../../assets/topupGif.mp4";
 import { useTranslation } from 'react-i18next';
 import useTelegramBack from "../../hooks/useTelegramBack";
 
@@ -66,7 +67,11 @@ const Topup = () => {
             <p>{t("topup_subtitle")}</p>
           </div>
           <div className="right">
-            <img src={headerImg} alt="" width="100px" />
+            {/* <img src={headerImg} alt="" width="100px" /> */}
+            <video type="video/mp4" autoPlay muted loop playsInline className="gif-video">
+              <source src={headerImg}  type="video/mp4" />
+              Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
+            </video>
           </div>
         </header>
 

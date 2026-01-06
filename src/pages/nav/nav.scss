@@ -5,7 +5,12 @@ nav {
   border-top-right-radius: 30px;
   background: #17212b;
   width: 100%;
-  flex-shrink: 0;
+  max-width: 380px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   ul {
     display: flex;
     justify-content: space-around;
@@ -24,7 +29,7 @@ nav {
         &.active,
         &.active-link {
           color: #248bda;
-          
+
           svg {
             // Lucide ikonkalari SVG bo'lgani uchun fill va stroke ishlatiladi
             stroke: #248bda; /* Chiziqlar rangi */

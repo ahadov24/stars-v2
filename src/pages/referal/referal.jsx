@@ -2,8 +2,8 @@ import "./referal.scss";
 import { useState } from "react";
 import { Copy, Share2, Check, Star } from "lucide-react";
 import Nav from "../nav/nav.jsx";
-// import headerImg from "../../assets/headerImg.gif";
-import headerImg from "./gif.webm";
+import headerImg from "../../assets/referalGif.mp4";
+// import headerImg from "./gif.webm";
 import { useTranslation } from "react-i18next";
 import useTelegramBack from "../../hooks/useTelegramBack";
 
@@ -49,7 +49,6 @@ const Referal = () => {
             <p>{t("referalSubtitle")}</p>
           </div>
           <div className="right">
-            {/* <img src={headerImg} alt="" width="100px" /> */}
             <video type="video/webm" autoPlay muted loop playsInline className="gif-video">
               <source src={headerImg}  type="video/webm" />
               Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
