@@ -3,6 +3,8 @@ import "./stars.scss";
 import Nav from "../nav/nav.jsx";
 import headerImg from "../../assets/starsGif.mp4";
 import { useTranslation } from "react-i18next";
+import headerImg from "../../assets/starsGif.mp4";
+import { useTranslation } from 'react-i18next';
 import useTelegramBack from "../../hooks/useTelegramBack";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
@@ -47,6 +49,7 @@ const Stars = () => {
           <div className="right">
             <video autoPlay muted loop playsInline className="gif-video">
               <source src={headerImg} type="video/mp4" />
+              Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
             </video>
           </div>
         </header>
