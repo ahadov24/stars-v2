@@ -22,6 +22,14 @@ const Home = () => {
   // Agar loading bo'lsa, xohlasangiz skeleton yoki loader qo'shish mumkin
   // Lekin Home sahifasi ko'rinib turishi uchun shunchaki davom etaveramiz
 
+  if (loading) {
+    return (
+      <>
+        <p>Loading...</p>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="home">
@@ -29,7 +37,7 @@ const Home = () => {
           <h1>
             {t("welcome")}
             {/* Foydalanuvchi ismi yuklangandan keyin chiqishi uchun: */}
-            {user && <span>, {user.fullname}!</span>}
+            {/* {user && <span>, {user.fullname}!</span>} */}
             <img src={duck} alt="" width="44px" />
           </h1>
           {/* <p>{t("dearUser")}</p> */}

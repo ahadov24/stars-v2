@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "../../utils/i18n";
 import useTelegramBack from "../../hooks/useTelegramBack";
+import useGetOrCreateUser from "../../hooks/useGetOrCreateUser";
 
 import {
   Globe,
@@ -23,6 +24,12 @@ const languageLabel = {
 
 const Settings = () => {
   useTelegramBack("/");
+
+  
+  const tg = window.Telegram?.WebApp;
+  const tgUser = tg?.initDataUnsafe?.user;
+  
+  const { user, loading } = useGetOrCreateUser(tgUser);
 
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -77,13 +84,13 @@ const Settings = () => {
       <div className="settings">
         {/* Header */}
         <header>
-          <img src={premiumImg} alt="Premium" />
-          <h2>Name</h2>
+          <img src={tgUser.photo_url || {premiumImg}} alt="Premium" />
+          <h2>{tgUser.fullname}</h2>
         </header>
 
         {/* Balance */}
         <div className="balance">
-          <h2>0 UZS</h2>
+          <h2>{Number(user.balance).toLocaleString('ru-RU').replace(/,/g, ' ')} UZS</h2>
           <NavLink to="/topup">{t("top_up_button")}</NavLink>
         </div>
 
