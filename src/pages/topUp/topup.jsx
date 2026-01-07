@@ -1,34 +1,41 @@
 import "./topup.scss";
 import Nav from "../nav/nav";
-import { CreditCard, ShieldCheck, Upload, Copy } from "lucide-react";
+import { CreditCard, ShieldCheck, Upload, Copy, Loader2 } from "lucide-react"; // Loader2 qo'shdik
 import { useState } from "react";
-// import headerImg from "../../assets/headerImg.gif";
 import headerImg from "../../assets/topupGif.mp4";
 import { useTranslation } from 'react-i18next';
 import useTelegramBack from "../../hooks/useTelegramBack";
+import useGetOrCreateUser from "../../hooks/useGetOrCreateUser"; // Userni olish uchun
+import useTopup from "../../hooks/useTopup"; // Hookni import qilish
 
 const Topup = () => {
-    useTelegramBack("/settings");
+  useTelegramBack("/settings");
   const { t } = useTranslation();
+  
+  // Telegram user va bizning DB dagi user ma'lumotlari
+  const tg = window.Telegram?.WebApp;
+  const tgUser = tg?.initDataUnsafe?.user;
+  const { user } = useGetOrCreateUser(tgUser);
+  
+  // Topup hooki
+  const { submitTopup, loading: isSubmitting, error, success } = useTopup();
+
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [customAmount, setCustomAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("click");
   const [receipt, setReceipt] = useState(null);
-  
-  // Tooltip uchun holat
   const [showTooltip, setShowTooltip] = useState(false);
   
   const cardHolderNumber = "9860 1234 5678 9012";
   const presetAmounts = [10000, 20000, 50000, 100000];
-  const myBalance = "19 669 000";
 
   const currentAmount = customAmount || (selectedIdx !== null ? presetAmounts[selectedIdx] : 0);
 
   const isFormValid = () => {
     if (paymentMethod === "click") {
-      return currentAmount > 0;
+      return currentAmount >= 5000; // Minimal summa 5000
     } else {
-      return currentAmount > 0 && receipt !== null;
+      return currentAmount >= 5000 && receipt !== null;
     }
   };
 
@@ -48,14 +55,28 @@ const Topup = () => {
     }
   };
 
-  // Alert o'rniga Tooltip funksiyasi
   const copyToClipboard = () => {
     navigator.clipboard.writeText(cardHolderNumber.replace(/\s/g, ''));
     setShowTooltip(true);
-    // 2 soniyadan keyin tooltipni yashirish
-    setTimeout(() => {
-      setShowTooltip(false);
-    }, 2000);
+    setTimeout(() => setShowTooltip(false), 2000);
+  };
+
+  // TO'LOVNI YUBORISH
+  const handlePayment = async () => {
+    if (paymentMethod === "admin") {
+      try {
+        await submitTopup({
+          user_id: tgUser?.id, // Telegram ID yuboramiz
+          amount: currentAmount,
+          file: receipt
+        });
+      } catch (err) {
+        console.error("Topup error:", err);
+      }
+    } else {
+      // Click uchun mantiq (masalan, Click billing havolasiga yo'naltirish)
+      alert("Click xizmati tez kunda ishga tushadi. Hozircha 'Admin' orqali to'lov qiling.");
+    }
   };
 
   return (
@@ -67,10 +88,8 @@ const Topup = () => {
             <p>{t("topup_subtitle")}</p>
           </div>
           <div className="right">
-            {/* <img src={headerImg} alt="" width="100px" /> */}
-            <video type="video/mp4" autoPlay muted loop playsInline className="gif-video">
-              <source src={headerImg}  type="video/mp4" />
-              Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
+            <video autoPlay muted loop playsInline className="gif-video">
+              <source src={headerImg} type="video/mp4" />
             </video>
           </div>
         </header>
@@ -78,7 +97,9 @@ const Topup = () => {
         <div className="payment-page">
           <div className="balance-info">
             <span>{t("my_balance")}</span>
-            <span className="amount-gold">{myBalance} UZS</span>
+            <span className="amount-gold">
+              {user ? Number(user.balance).toLocaleString('ru-RU').replace(/,/g, ' ') : "0"} UZS
+            </span>
           </div>
 
           <div className="section">
@@ -107,10 +128,7 @@ const Topup = () => {
           <div className="section">
             <p className="section-label">{t("select_payment_method")}</p>
 
-            <div
-              className={`method-card ${paymentMethod === "click" ? "selected" : ""}`}
-              onClick={() => setPaymentMethod("click")}
-            >
+            <div className={`method-card ${paymentMethod === "click" ? "selected" : ""}`} onClick={() => setPaymentMethod("click")}>
               <div className="icon-box"><CreditCard size={20} /></div>
               <div className="method-info">
                 <span className="title">{t("click_payment")}</span>
@@ -118,10 +136,7 @@ const Topup = () => {
               </div>
             </div>
 
-            <div
-              className={`method-card ${paymentMethod === "admin" ? "selected" : ""}`}
-              onClick={() => setPaymentMethod("admin")}
-            >
+            <div className={`method-card ${paymentMethod === "admin" ? "selected" : ""}`} onClick={() => setPaymentMethod("admin")}>
               <div className="icon-box"><ShieldCheck size={20} /></div>
               <div className="method-info">
                 <span className="title">{t("admin_payment")}</span>
@@ -137,17 +152,13 @@ const Topup = () => {
                     <div className="number-row">
                       <span>{cardHolderNumber}</span>
                       <div className="copy-btn-wrapper">
-                        {/* Tooltip elementi */}
                         {showTooltip && <span className="copy-tooltip">{t("copied")}</span>}
-                        <button onClick={copyToClipboard}>
-                          <Copy size={16} />
-                        </button>
+                        <button onClick={copyToClipboard}><Copy size={16} /></button>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <p> <p>Abdullajonov A.</p> {/*{t("cardHoledrName")}*/}</p>
+                <p>Abdullajonov A.</p>
 
                 <div className="upload-section">
                   <label htmlFor="receipt-upload" className="upload-label">
@@ -160,12 +171,16 @@ const Topup = () => {
             )}
           </div>
 
+          {/* Xatolik yoki Muvaffaqiyat xabarlari */}
+          {error && <p className="error-text" style={{color: 'red', fontSize: '12px', marginBottom: '10px'}}>{error}</p>}
+          {success && <p className="success-text" style={{color: '#4CAF50', fontSize: '13px', marginBottom: '10px'}}>{t("payment_sent")}</p>}
+
           <button
-            className={`main-action-btn ${isFormValid() ? "active" : "disabled"}`}
-            disabled={!isFormValid()}
-            onClick={() => alert(t("payment_sent"))}
+            className={`main-action-btn ${isFormValid() && !isSubmitting ? "active" : "disabled"}`}
+            disabled={!isFormValid() || isSubmitting}
+            onClick={handlePayment}
           >
-            {t("confirm_payment")}
+            {isSubmitting ? <Loader2 className="spinner" size={20} /> : t("confirm_payment")}
           </button>
         </div>
       </div>
