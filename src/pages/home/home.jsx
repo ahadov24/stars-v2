@@ -6,6 +6,7 @@ import premiumImg from "../../assets/premium.png";
 import Nav from "../nav/nav.jsx";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import Loader from "../loader/loader";
 // 1. Hookni import qilamiz
 import useGetOrCreateUser from "../../hooks/useGetOrCreateUser"; 
 
@@ -25,7 +26,7 @@ const Home = () => {
   if (loading) {
     return (
       <>
-        <p>Loading...</p>
+        <Loader />
       </>
     )
   }

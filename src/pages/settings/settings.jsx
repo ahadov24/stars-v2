@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../utils/i18n";
 import useTelegramBack from "../../hooks/useTelegramBack";
 import useGetOrCreateUser from "../../hooks/useGetOrCreateUser";
+import Loader from "../loader/loader";
 
 import {
   Globe,
@@ -67,10 +68,9 @@ const Settings = () => {
   // 2. Agar ma'lumotlar yuklanayotgan bo'lsa, "Loading..." ko'rsatamiz
   if (loading) {
     return (
-      <div className="settings-loading">
-        <p>Loading...</p> 
-        <Nav />
-      </div>
+      <>
+        <Loader />
+      </>
     );
   }
 
