@@ -15,8 +15,8 @@ const Stars = () => {
   const tg = window.Telegram?.WebApp;
   const tgUser = tg?.initDataUnsafe?.user;
 
-  // starsOptions ichidagi fieldlarni tekshirib oling (stars_count bo'lishi kerak)
   const { starsOptions = [], loading: starsLoading } = useGetStars();
+  const { buyStars } = useBuyStars();
 
   const [selected, setSelected] = useState(null);
   const [username, setUsername] = useState("");
@@ -25,7 +25,6 @@ const Stars = () => {
   const [modalStatus, setModalStatus] = useState("loading");
   const [buyError, setBuyError] = useState(null);
 
-  // stars_count ga moslangan vizual qavatlar
   const getStarLayers = (count) => {
     const num = Number(count) || 0;
     if (num >= 2500) return 5;
@@ -37,10 +36,15 @@ const Stars = () => {
   const isFormInvalid = !selected || username.trim().length === 0;
   const safeStarsOptions = Array.isArray(starsOptions) ? starsOptions : [];
   const visibleOptions = showAll ? safeStarsOptions : safeStarsOptions.slice(0, 3);
-  
-  const { buyStars } = useBuyStars();
 
   const handleBuyStars = async () => {
+    if (!tgUser?.id) {
+      setModalOpen(true);
+      setModalStatus("error");
+      setBuyError("Telegram ID topilmadi. WebAppni qayta ishga tushiring.");
+      return;
+    }
+
     setModalOpen(true);
     setModalStatus("loading");
     setBuyError(null);
@@ -48,22 +52,27 @@ const Stars = () => {
     try {
       const selectedPackage = safeStarsOptions.find(p => p.id === selected);
 
-      await buyStars({
-        user_id: tgUser?.id,
+      // BACKEND KUTAYOTGAN ANIQ FORMAT (user_id, miqdor)
+      const payload = {
+        user_id: tgUser.id,
         username: username.replace("@", "").trim(),
         star_id: selected,
-        stars_count: Number(selectedPackage?.stars_count) || 0
-      });
+        miqdor: Number(selectedPackage?.stars_count) || 0
+      };
+
+      await buyStars(payload);
 
       setModalStatus("success");
-      setTimeout(() => {
-        setModalOpen(false);
-      }, 3000);
+      setTimeout(() => setModalOpen(false), 3000);
+
     } catch (err) {
       setModalStatus("error");
-      setBuyError(
-        err.response?.data?.error || t("error_occurred")
-      );
+      // Hook ichidan kelgan yoki response ichidagi xato
+      const errorMsg = err.response?.data?.error || 
+                       err.response?.data?.message || 
+                       err.response?.data?.detail || 
+                       "Xatolik yuz berdi";
+      setBuyError(errorMsg);
     }
   };
 
@@ -112,11 +121,19 @@ const Stars = () => {
           <div className="forWho">
             <label>
               {t("stars_forWho")}
-              <a href="#" className="for-me-link" onClick={(e) => { e.preventDefault(); setUsername(tgUser?.username || ""); }}>
+              <a href="#" className="for-me-link" onClick={(e) => { 
+                e.preventDefault(); 
+                setUsername(tgUser?.username || ""); 
+              }}>
                 {t("forMe")}
               </a>
             </label>
-            <input type="text" placeholder={t("enterUsername")} value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input 
+              type="text" 
+              placeholder={t("enterUsername")} 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)} 
+            />
           </div>
         </div>
 
@@ -129,8 +146,14 @@ const Stars = () => {
             ) : (
               <div className="options-list">
                 {visibleOptions.map((option) => (
-                  <div key={option.id} className={`option-item ${selected === option.id ? "active" : ""}`} onClick={() => setSelected(option.id)}>
-                    <div className="radio-circle">{selected === option.id && <div className="inner-dot" />}</div>
+                  <div 
+                    key={option.id} 
+                    className={`option-item ${selected === option.id ? "active" : ""}`} 
+                    onClick={() => setSelected(option.id)}
+                  >
+                    <div className="radio-circle">
+                      {selected === option.id && <div className="inner-dot" />}
+                    </div>
                     <div className="stars-info">
                       <div className="stars-stack">
                         {[...Array(getStarLayers(option.stars_count))].map((_, i) => (
@@ -154,7 +177,11 @@ const Stars = () => {
               </button>
             )}
 
-            <button className="buy-button" disabled={isFormInvalid || starsLoading} onClick={handleBuyStars}>
+            <button 
+              className="buy-button" 
+              disabled={isFormInvalid || starsLoading} 
+              onClick={handleBuyStars}
+            >
               {t("stars_buyButton")}
             </button>
           </div>
