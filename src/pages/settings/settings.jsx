@@ -25,192 +25,146 @@ const languageLabel = {
 const Settings = () => {
   useTelegramBack("/");
 
-  
   const tg = window.Telegram?.WebApp;
   const tgUser = tg?.initDataUnsafe?.user;
-  
+
+  // 1. Hook orqali user ma'lumotlarini olamiz
   const { user, loading } = useGetOrCreateUser(tgUser);
 
   const { t } = useTranslation();
   const [openDropdown, setOpenDropdown] = useState(null);
   const containerRef = useRef(null);
 
-  // 🔤 Language (i18n code saqlanadi)
-  const [language, setLanguage] = useState(() => {
-    return localStorage.getItem("language") || "en";
-  });
+  const [language, setLanguage] = useState(() => localStorage.getItem("language") || "en");
+  const [payment, setPayment] = useState(() => localStorage.getItem("app_payment") || "Payme");
 
-  // 💳 Payment
-  const [payment, setPayment] = useState(() => {
-    return localStorage.getItem("app_payment") || "Payme";
-  });
-
-  // 📌 Outside click → close dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setOpenDropdown(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // 🌍 Language change
   useEffect(() => {
     localStorage.setItem("language", language);
     i18n.changeLanguage(language);
   }, [language]);
 
-  // 💾 Payment save
   useEffect(() => {
     localStorage.setItem("app_payment", payment);
   }, [payment]);
 
-  const toggleDropdown = (name) => {
-    setOpenDropdown(openDropdown === name ? null : name);
-  };
-
+  const toggleDropdown = (name) => setOpenDropdown(openDropdown === name ? null : name);
   const handleSelect = (type, value) => {
     if (type === "language") setLanguage(value);
     if (type === "payment") setPayment(value);
     setOpenDropdown(null);
   };
 
+  // 2. Agar ma'lumotlar yuklanayotgan bo'lsa, "Loading..." ko'rsatamiz
+  if (loading) {
+    return (
+      <div className="settings-loading">
+        <p>Loading...</p> 
+        <Nav />
+      </div>
+    );
+  }
+
+  // 3. Agar user topilmasa (masalan, API xatosi)
+  if (!user) {
+    return (
+      <div className="settings-error">
+        <p>Foydalanuvchi ma'lumotlarini yuklab bo'lmadi.</p>
+        <Nav />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="settings">
         {/* Header */}
         <header>
-          <img src={tgUser.photo_url || {premiumImg}} alt="Premium" />
-          <h2>{user.fullname}</h2>
+          {/* tgUser'dan rasm, agar u bo'lmasa default rasm */}
+          <div className="user-avatar">
+             <img src={tgUser?.photo_url || premiumImg} alt="User" />
+          </div>
+          <h2>{user.fullname || "User"}</h2>
+          <p>@{user.username || "username"}</p>
         </header>
 
         {/* Balance */}
         <div className="balance">
-          <h2>{Number(user.balance).toLocaleString('ru-RU').replace(/,/g, ' ')} UZS</h2>
+          {/* user.balance API'dan keladi */}
+          <h2>{Number(user.balance || 0).toLocaleString('ru-RU').replace(/,/g, ' ')} UZS</h2>
           <NavLink to="/topup">{t("top_up_button")}</NavLink>
         </div>
 
-        {/* Settings */}
+        {/* Settings Container */}
         <div className="settings-container" ref={containerRef}>
-          {/* 🌍 Language */}
+          {/* Language Item */}
           <div className="settings-wrapper">
-            <div
-              className="settings-item"
-              onClick={() => toggleDropdown("language")}
-            >
+            <div className="settings-item" onClick={() => toggleDropdown("language")}>
               <div className="left-side">
-                <span className="icon-wrapper">
-                  <Globe size={18} />
-                </span>
+                <span className="icon-wrapper"><Globe size={18} /></span>
                 <span className="label">{t("settings_language")}</span>
               </div>
-
               <div className="right-side">
-                <span className="value">
-                  {languageLabel[language]}
-                </span>
-                <ChevronDown
-                  size={14}
-                  className={`arrow-icon ${
-                    openDropdown === "language" ? "open" : ""
-                  }`}
-                />
+                <span className="value">{languageLabel[language]}</span>
+                <ChevronDown size={14} className={`arrow-icon ${openDropdown === "language" ? "open" : ""}`} />
               </div>
             </div>
-
             {openDropdown === "language" && (
               <div className="dropdown-menu">
-                <div onClick={() => handleSelect("language", "uz")}>
-                  UZB
-                </div>
-                <div onClick={() => handleSelect("language", "ru")}>
-                  RUS
-                </div>
-                <div onClick={() => handleSelect("language", "en")}>
-                  ENG
-                </div>
+                <div onClick={() => handleSelect("language", "uz")}>UZB</div>
+                <div onClick={() => handleSelect("language", "ru")}>RUS</div>
+                <div onClick={() => handleSelect("language", "en")}>ENG</div>
               </div>
             )}
           </div>
 
-          {/* 💳 Payment */}
+          {/* Payment Item */}
           <div className="settings-wrapper">
-            <div
-              className="settings-item"
-              onClick={() => toggleDropdown("payment")}
-            >
+            <div className="settings-item" onClick={() => toggleDropdown("payment")}>
               <div className="left-side">
-                <span className="icon-wrapper">
-                  <CreditCard size={18} />
-                </span>
+                <span className="icon-wrapper"><CreditCard size={18} /></span>
                 <span className="label">{t("settings_payment")}</span>
               </div>
-
               <div className="right-side">
                 <span className="value">{payment}</span>
-                <ChevronDown
-                  size={14}
-                  className={`arrow-icon ${
-                    openDropdown === "payment" ? "open" : ""
-                  }`}
-                />
+                <ChevronDown size={14} className={`arrow-icon ${openDropdown === "payment" ? "open" : ""}`} />
               </div>
             </div>
-
             {openDropdown === "payment" && (
               <div className="dropdown-menu">
-                <div onClick={() => handleSelect("payment", "Payme")}>
-                  Payme
-                </div>
-                <div onClick={() => handleSelect("payment", "Click")}>
-                  Click
-                </div>
+                <div onClick={() => handleSelect("payment", "Payme")}>Payme</div>
+                <div onClick={() => handleSelect("payment", "Click")}>Click</div>
               </div>
             )}
           </div>
 
-          {/* 🎧 Help */}
-          <a
-            className="settings-item"
-            href="https://t.me/helpmme"
-            target="_blank"
-            rel="noreferrer"
-          >
+          {/* Support and News */}
+          <a className="settings-item" href="https://t.me/helpmme" target="_blank" rel="noreferrer">
             <div className="left-side">
-              <span className="icon-wrapper">
-                <Headphones size={18} />
-              </span>
+              <span className="icon-wrapper"><Headphones size={18} /></span>
               <span className="label">{t("settings_help")}</span>
             </div>
-            <div className="right-side">
-              <span className="value">@helpmme</span>
-            </div>
+            <div className="right-side"><span className="value">@helpmme</span></div>
           </a>
 
-          {/* 📢 News */}
-          <a
-            className="settings-item"
-            href="https://t.me/news"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a className="settings-item" href="https://t.me/news" target="_blank" rel="noreferrer">
             <div className="left-side">
-              <span className="icon-wrapper">
-                <Megaphone size={18} />
-              </span>
+              <span className="icon-wrapper"><Megaphone size={18} /></span>
               <span className="label">{t("settings_news")}</span>
             </div>
-            <div className="right-side">
-              <span className="value">@news</span>
-            </div>
+            <div className="right-side"><span className="value">@news</span></div>
           </a>
         </div>
       </div>
-
       <Nav />
     </>
   );
