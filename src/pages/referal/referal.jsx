@@ -10,7 +10,12 @@ import useGetOrCreateUser from "../../hooks/useGetOrCreateUser";
 const Referal = () => {
   useTelegramBack("/");
   const { t } = useTranslation();
-  const { user, loading } = useGetOrCreateUser(); // Foydalanuvchi ma'lumotlarini olish
+  
+  const tg = window.Telegram?.WebApp;
+  const tgUser = tg?.initDataUnsafe?.user;
+
+  // 1. Hook orqali user ma'lumotlarini olamiz
+  const { user, loading } = useGetOrCreateUser(tgUser);
 
   const [activeTab, setActiveTab] = useState("stars");
   const [copiedId, setCopiedId] = useState(false);
