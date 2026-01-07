@@ -63,7 +63,7 @@ const Referal = () => {
             <div className="balance-item">
               <div className="value">
                 <Star fill="#fff" width="20px" /> 
-                {loading ? "..." : (userData?.referral_count || 0)}
+                {loading ? "..." : (user?.referral_count || 0)}
               </div>
               <div className="sub-text">Referallar soni</div>
             </div>
@@ -71,7 +71,7 @@ const Referal = () => {
             <div className="balance-item">
               <div className="value">
                 <Star fill="#fff" width="20px" /> 
-                {loading ? "..." : (Number(userData?.balance) || 0).toLocaleString()} UZS
+                {loading ? "..." : (Number(user?.balance) || 0).toLocaleString()} UZS
               </div>
               <div className="sub-text">{t("totalBalance")}</div>
             </div>
