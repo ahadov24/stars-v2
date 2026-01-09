@@ -70,7 +70,7 @@ const Referal = () => {
                 <Star fill="#fff" width="20px" /> 
                 {loading ? "..." : (user?.referral_count || 0)}
               </div>
-              <div className="sub-text">Referallar soni</div>
+              <div className="sub-text">{t("referal_count")}</div>
             </div>
             <div className="divider"></div>
             <div className="balance-item">
@@ -116,8 +116,7 @@ const Referal = () => {
 
           {/* Dinamik Linklar qismi */}
           <div className="links-row">
-            <div className="link-box">
-<<<<<<< HEAD
+            {/* <div className="link-box">
               <span>Referral Link</span>
               <button
                 onClick={() => handleCopy(referralLink, "link")}
@@ -125,20 +124,14 @@ const Referal = () => {
               >
                 {copiedLink ? <Check size={16} /> : <Copy size={16} />}
                 {copiedLink && <span className="tooltip">{t("copied")}</span>}
-=======
-              <div className="label-text">Referral ID</div>
-              <div className="code-value">{loading ? <Loader2 className="spin" size={14}/> : referralCode}</div>
-              <button onClick={() => handleCopy(referralCode, "id")} className="copy-btn">
-                {copiedId ? <Check size={16} color="#4caf50" /> : <Copy size={16} />}
               </button>
-            </div>
+            </div> */}
             
             <div className="link-box">
-              <div className="label-text">Referral Link</div>
+              {/* <div className="label-text">Referral Link</div> */}
               <div className="code-value link">{loading ? "..." : "t.me/Linkify..."}</div>
               <button onClick={() => handleCopy(referralLink, "link")} className="copy-btn">
                 {copiedLink ? <Check size={16} color="#4caf50" /> : <Copy size={16} />}
->>>>>>> 292a750e09f01302c9b4acf36d5263d3efea1544
               </button>
             </div>
           </div>

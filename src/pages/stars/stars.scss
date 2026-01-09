@@ -54,11 +54,12 @@
       font-size: 14px;
       display: flex;
       justify-content: space-between;
-      color: #888;
+      padding: 0 10px;
 
       a {
+        font-size: 14px;
         color: #248bda;
-        text-decoration: none;
+        margin-left: 10px;
       }
     }
 
@@ -78,9 +79,8 @@
 
   .main .stars-container {
     h3 {
-      font-size: 15px;
-      color: #888;
       margin-bottom: 12px;
+      margin-left: 12px;
     }
 
     .options-list {

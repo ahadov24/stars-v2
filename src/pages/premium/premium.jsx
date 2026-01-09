@@ -7,7 +7,6 @@ import useTelegramBack from "../../hooks/useTelegramBack";
 import { Loader2, CheckCircle2, XCircle } from "lucide-react";
 import useGetPremium from "../../hooks/useGetPremium";
 import useBuyPremium from "../../hooks/useBuyPremium";
-// import api from "../../api/axios";
 
 const Premium = () => {
   useTelegramBack("/");
